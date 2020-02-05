@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "sourceMap": true
+  },
+  "files": [
+    "common.ts",
+    "animation.ts",
+    "screenstate.ts",
+    "script.ts",
+    "render.ts",
+    "game.ts"
+  ]
+}
