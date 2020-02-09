@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "sourceMap": true
+    "target": "es6",
+    "sourceMap": true,
+    "module": "es6",
   },
   "files": [
     "common.ts",

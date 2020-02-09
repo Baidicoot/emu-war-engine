@@ -27,6 +27,8 @@ export interface Turn {
 export interface MoveAttack {
     kind: Action.MoveAttack,
     direction: Direction,
+    x: number,
+    y: number,
 }
 
 export interface Cast {

@@ -23,3 +23,32 @@ export const RenderTarget = function(x: number, y: number, fill: string): Render
         view: genTable(x, y, fill)
     }
 }
+
+export const setPixel = (target: RenderTarget) => (x: number, y: number, val: string): void => {
+    target.view.childNodes[y].childNodes[x].childNodes[0].nodeValue = val
+}
+
+export const getPixel = (target: RenderTarget) => (x: number, y: number): string =>
+    target.view.childNodes[y].childNodes[x].nodeValue
+
+export interface SpeechTarget {
+    readonly elem: HTMLParagraphElement
+}
+
+export const genBox = (): HTMLParagraphElement => {
+    return document.createElement("p")
+}
+
+export const SpeechBox = (): SpeechTarget => {
+    return {
+        elem: genBox()
+    }
+}
+
+export const say = (target: SpeechTarget) => (val: string): void => {
+    target.elem.nodeValue += val
+}
+
+export const clear = (target: SpeechTarget) => {
+    target.elem.nodeValue = ""
+}

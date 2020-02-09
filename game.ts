@@ -203,6 +203,10 @@ export const mainLoop = function(state: GameState, input: Event.Input, onDeath: 
 
 export const render = function(state: GameState, target: Common.RenderObject, speaker: Common.SayObject) {
     state = runAnimationQueue(state, target)
+    state.screen.entities = [{x: state.player.x, y: state.player.y, value: '@'}]
+    for (let i = 0; i < state.enemies.length; i++) {
+        state.screen.entities = state.screen.entities.concat(state.enemies[i].draw())
+    }
     Screen.cull(state.screen)
     Screen.draw(target, state.screen)
     return runSayQueue(state, speaker)
@@ -218,4 +222,35 @@ export interface Enemy {
     draw: () => Array<Screen.Entity>,
     isHurtBy: (event: Event.MoveAttack) => boolean,
     handleEvent: (event: Event.Event, gamestate: GameState) => GameState,
+}
+
+const empty3DArray = <T>(w: number, h: number): Array<T> => {
+    let o = []
+    for (let x = 0; x < w; x++) {
+        let tmp = []
+        for (let y = 0; y < w; y++) {
+            tmp.push(null)
+        }
+        o.push(tmp)
+    }
+    return o
+}
+
+export const Empty = (p1: Player, w: number, h: number, fill: string): GameState => ({
+    screen: {
+        width: w, height: h,
+        animations: empty3DArray(w, h),
+        entities: [],
+        fill: fill,
+    },
+    player: p1,
+    enemies: [],
+    inventory: [],
+    animationQueue: [],
+    sayQueue: [],
+})
+
+export const spawnEnemy = (state: GameState, enemy: Enemy): GameState => {
+    state.enemies.push(enemy)
+    return state
 }
